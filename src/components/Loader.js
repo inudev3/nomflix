@@ -5,9 +5,14 @@ const Container = styled.div`
     height:100vh;
     width:100vw;
     display:flex;
-    justify-content:25px;
+    justify-content:center;
     font-size:20px;
+    margin-top:20px;
+    
 `;
 
-const Loader = ()=><Container>Loading...⏰</Container>;
+const Loader = ()=>
+    <Container>
+        <span role='img' aria-label="Loading">Loading...⏰</span>
+    </Container>;
 export default Loader;

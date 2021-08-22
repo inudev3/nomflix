@@ -11,11 +11,11 @@ export default class SearchContainer extends React.Component {
             tvResults: null,
             error: null,
             loading: false,
-            ismovie: false
         }
     }
 
-    handleSubmit = () => {
+    handleSubmit = (event) => {
+        event.preventDefault();
         const {searchTerm} = this.state;
 
         if (searchTerm !== '') {
@@ -24,9 +24,12 @@ export default class SearchContainer extends React.Component {
         this.setState({searchTerm: ""});
     }
 
+    onChange = (event) => {
+        this.setState({searchTerm: event.target.value});
+    }
+
     async searchbyTerm() {
         const {searchTerm} = this.state;
-        let result;
         try {
             this.setState({loading: true});
 
@@ -37,7 +40,7 @@ export default class SearchContainer extends React.Component {
         } catch {
             this.setState({error: "Cant find movies information"})
         } finally {
-            this.setState({loading: false, result});
+            this.setState({loading: false});
         }
 
     }
@@ -45,14 +48,15 @@ export default class SearchContainer extends React.Component {
 
     render() {
         const {
-            isMovie, searchTerm,
+            searchTerm,
             movieResults,
             tvResults, error, loading
         } = this.state;
-        console.log(this.state);
-        return (<SearchPresenter searchTerm={searchTerm} isMovie={isMovie}
+
+        return (<SearchPresenter searchTerm={searchTerm}
                                  handleSubmit={this.handleSubmit.bind(this)}
                                  movieResults={movieResults}
+                                 onChange={this.onChange.bind(this)}
                                  tvResults={tvResults} error={error} loading={loading}></SearchPresenter>)
     }
 

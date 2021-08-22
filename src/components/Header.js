@@ -2,7 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
 
-const Header:HTMLHeadElement = styled.header`
+const Header = styled.header`
   color: white;
   position: fixed;
   top: 0;
@@ -23,7 +23,6 @@ const List = styled.ul`
 const Item = styled.li`
   width: 80px;
   height: 50px;
-  text-align: center;
   border-bottom: 3px solid
     ${props => (props.current ? "#3498db" : "transparent")};
   transition: border-bottom 0.5s ease-in-out;

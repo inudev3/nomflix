@@ -4,6 +4,7 @@ import Search from "Routes/Search";
 import TV from "Routes/TV";
 import Detail from "Routes/Detail";
 import Header from "./Header";
+import React from "react";
 const Router = () => {
 	return (
 		<BrowserRouter>

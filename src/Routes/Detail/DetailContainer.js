@@ -1,54 +1,66 @@
-import React from 'react'
-import {moviesAPI, tvAPI} from "../../api";
+import React from "react";
+import { moviesAPI, tvAPI } from "../../api";
 import DetailPresenter from "./DetailPresenter";
 
 export default class DetailContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        const {location, history, match} = props;
-        console.log(location);
-        this.state = {
-            result:null,
-            searchTerm: "",
-            error: null,
-            loading: true,
-            isMovie: location.pathname.includes('/movie'),
-        }
+  constructor(props) {
+    super(props);
+    const {
+      location: { pathname },
+    } = props;
 
+    this.state = {
+      result: null,
+      searchTerm: "",
+      error: null,
+      loading: true,
+      isMovie: pathname.includes("/movie"),
+      activeTab: 0,
+    };
+  }
+
+  async componentDidMount() {
+    const {
+      history: { push },
+      match: {
+        params: { id },
+      },
+    } = this.props;
+    const { isMovie, loading, error } = this.state;
+    const parsedID = Number(id);
+
+    if (isNaN(parsedID)) {
+      push("/");
     }
-
-    async componentDidMount() {
-
-        const {location, history, match: {params: {id}}} = this.props;
-        const {isMovie, loading, error} = this.state;
-        if (isNaN(Number(id))) {
-            history.push('/');
-        }
-        let result;
-        try {
-            if (isMovie) {
-                ({data: result} = await tvAPI.showDetail(Number(id)));
-            } else {
-                ({data: result} = await moviesAPI.movieDetail(Number(id)));
-            }
-
-        } catch {
-            this.setState({error: "Cant find"})
-        } finally {
-            this.setState({loading: false, result});
-        }
-
+    let result = null;
+    try {
+      if (isMovie) {
+        ({ data: result } = await moviesAPI.movieDetail(parsedID));
+      } else {
+        ({ data: result } = await tvAPI.showDetail(parsedID));
+      }
+    } catch {
+      this.setState({ error: "Cant find" });
+    } finally {
+      this.setState({ loading: false, result });
     }
+  }
+  onClickMenu(id) {
+    this.setState({ activeTab: id });
+  }
 
-    render() {
+  render() {
+    const { result, isMovie, error, loading, activeTab } = this.state;
 
-        const {
-            result,
-            isMovie,
-            error, loading
-        } = this.state;
-        return (<DetailPresenter result={result} isMovie={isMovie} error={error} loading={loading}></DetailPresenter>)
-    }
-
+    return (
+      <DetailPresenter
+        activeTab={activeTab}
+        onClickMenu={this.onClickMenu.bind(this)}
+        result={result}
+        isMovie={isMovie}
+        error={error}
+        loading={loading}
+      ></DetailPresenter>
+    );
+  }
 }
-

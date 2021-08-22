@@ -15,8 +15,8 @@ const Title = styled.span`
 const Grid  =styled.div`
     margin-top:25px;
     display:grid;
-    grid-template-columns: repeat(autofill);
-    grid-template-rows: repeat(autofill);
+    grid-template-columns: repeat(auto-fill, 125px);
+    grid-gap:25px;
 `;
 
 
@@ -30,8 +30,8 @@ const Section = ({title, children})=>(
 
 Section.propTypes={
     title:PropTypes.string.isRequired,
-    children:PropTypes.oneOfType(
-        [PropTypes.arrayOf(PropTypes.node)],
+    children:PropTypes.oneOfType([
+        PropTypes.arrayOf(PropTypes.node)],
         PropTypes.node
     )
 }
