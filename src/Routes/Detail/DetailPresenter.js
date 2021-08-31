@@ -191,14 +191,16 @@ const DetailPresenter = ({
                         .map((runtime) => `${runtime}min`)
                         .join(" / ")}
                 </Item>
-                <Divider>•</Divider>
-                <Item>
-                  {isMovie && (
-                    <a href={`https://imdb.com/title/${result.imdb_id}`}>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" />
-                    </a>
-                  )}
-                </Item>
+                {isMovie && (
+                  <>
+                    <Divider>•</Divider>
+                    <Item>
+                      <a href={`https://imdb.com/title/${result.imdb_id}`}>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" />
+                      </a>
+                    </Item>
+                  </>
+                )}
               </ItemContainer>
               <Summary>{result?.overview}</Summary>
 

@@ -21,13 +21,13 @@ const Videos = ({ result }) => {
       <Pagination>
         {results && results.length > 0 && (
           <>
-            {page > 0 && (
+            {page > 1 && (
               <button onClick={() => setPage((prev) => prev - 1)}>
                 <i className="fas fa-chevron-left fa-5x"></i>
               </button>
             )}
 
-            {page < results.length - 1 && (
+            {page < results.length && (
               <button onClick={() => setPage((prev) => prev + 1)}>
                 <i className="fas fa-chevron-right fa-5x"></i>
               </button>
@@ -44,7 +44,7 @@ export default Videos;
 const IFRAME = styled.iframe`
   position: absolute;
   width: 100%;
-  height: 95%;
+  height: 100%;
 `;
 
 const Pagination = styled.div`
