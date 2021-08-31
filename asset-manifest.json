@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/github.io/nomflix/static/js/main.9e037054.chunk.js",
+    "main.js.map": "/github.io/nomflix/static/js/main.9e037054.chunk.js.map",
+    "runtime-main.js": "/github.io/nomflix/static/js/runtime-main.9c417c8a.js",
+    "runtime-main.js.map": "/github.io/nomflix/static/js/runtime-main.9c417c8a.js.map",
+    "static/css/2.a4fdab3a.chunk.css": "/github.io/nomflix/static/css/2.a4fdab3a.chunk.css",
+    "static/js/2.7d17bbf0.chunk.js": "/github.io/nomflix/static/js/2.7d17bbf0.chunk.js",
+    "static/js/2.7d17bbf0.chunk.js.map": "/github.io/nomflix/static/js/2.7d17bbf0.chunk.js.map",
+    "index.html": "/github.io/nomflix/index.html",
+    "static/css/2.a4fdab3a.chunk.css.map": "/github.io/nomflix/static/css/2.a4fdab3a.chunk.css.map",
+    "static/js/2.7d17bbf0.chunk.js.LICENSE.txt": "/github.io/nomflix/static/js/2.7d17bbf0.chunk.js.LICENSE.txt",
+    "static/media/flag-icon.min.css": "/github.io/nomflix/static/media/zw.f5ceeff7.svg",
+    "static/media/noPosterSmall.png": "/github.io/nomflix/static/media/noPosterSmall.b0227c64.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9c417c8a.js",
+    "static/css/2.a4fdab3a.chunk.css",
+    "static/js/2.7d17bbf0.chunk.js",
+    "static/js/main.9e037054.chunk.js"
+  ]
+}
