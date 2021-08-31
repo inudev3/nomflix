@@ -24,9 +24,7 @@ const HomePresenter = ({ nowPlaying, upComing, Popular, error, loading }) => (
           <Section title="Now Playing">
             {nowPlaying.map((movie) => (
               <Poster
-                imageURL={
-                  movie.poster_path || require("../../assets/noPosterSmall.png")
-                }
+                imageURL={movie.poster_path}
                 id={movie.id}
                 title={movie.title}
                 year={movie.release_date.substr(0, 4)}

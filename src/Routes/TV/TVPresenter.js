@@ -24,9 +24,7 @@ const TVPresenter = ({ TopRated, Popular, AiringToday, error, loading }) => (
           <Section title="Popular">
             {Popular.map((show) => (
               <Poster
-                imageURL={
-                  show.poster_path || require("../../assets/noPosterSmall.png")
-                }
+                imageURL={show.poster_path}
                 id={show.id}
                 title={show.name}
                 year={show.first_air_date?.substr(0, 4)}

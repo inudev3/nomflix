@@ -1,6 +1,7 @@
 import React from "react";
 import { moviesAPI, tvAPI } from "../../api";
 import DetailPresenter from "./DetailPresenter";
+import { Route, Switch } from "react-router-dom";
 
 export default class DetailContainer extends React.Component {
   constructor(props) {
@@ -11,11 +12,9 @@ export default class DetailContainer extends React.Component {
 
     this.state = {
       result: null,
-      searchTerm: "",
       error: null,
       loading: true,
       isMovie: pathname.includes("/movie"),
-      activeTab: 0,
     };
   }
 
@@ -27,7 +26,7 @@ export default class DetailContainer extends React.Component {
       },
     } = this.props;
     const { isMovie, loading, error } = this.state;
-    const parsedID = Number(id);
+    const parsedID = parseInt(id);
 
     if (isNaN(parsedID)) {
       push("/");
@@ -45,22 +44,21 @@ export default class DetailContainer extends React.Component {
       this.setState({ loading: false, result });
     }
   }
+
   onClickMenu(id) {
     this.setState({ activeTab: id });
   }
 
   render() {
-    const { result, isMovie, error, loading, activeTab } = this.state;
-
+    const { match, history, location } = this.props;
     return (
-      <DetailPresenter
-        activeTab={activeTab}
-        onClickMenu={this.onClickMenu.bind(this)}
-        result={result}
-        isMovie={isMovie}
-        error={error}
-        loading={loading}
-      ></DetailPresenter>
+      <>
+        <DetailPresenter
+          {...this.props}
+          onClickMenu={this.onClickMenu.bind(this)}
+          {...this.state}
+        />
+      </>
     );
   }
 }

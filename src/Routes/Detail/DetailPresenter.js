@@ -1,10 +1,13 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import Loader from "../../components/Loader";
+import { Link, Route, Switch } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import Message from "../../components/Message";
-import { Video, Company } from "../../components/tabMenu";
+import Videos from "./Videos";
+import Productions from "./Productions";
+import Seasons from "./Seasons";
 
 const Container = styled.div`
   height: calc(100vh - 50px);
@@ -63,9 +66,17 @@ const Divider = styled.span`
 
 const ItemContainer = styled.div`
   margin: 20px 0px;
+  display: flex;
+  align-items: center;
 `;
 const Item = styled.span`
   font-size: 15px;
+  align-items: center;
+
+  img {
+    height: 30px;
+    width: 36px;
+  }
 `;
 
 const Summary = styled.p`
@@ -77,8 +88,8 @@ const Summary = styled.p`
 
 const TabContent = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, 150px);
-  grid-template-rows: repeat(auto-fill, 100px);
+
+  grid-template-rows: repeat(auto-fill);
   grid-gap: 20px;
   position: relative;
   width: 100%;
@@ -100,9 +111,8 @@ const Menu = styled.div`
 const Tabs = styled.div`
   height: 40px;
   display: flex;
-  margin-bottom: 10px;
-  border: none;
   margin: 0;
+  border: none;
 `;
 
 const Tab = styled.button`
@@ -120,6 +130,7 @@ const Tab = styled.button`
   justify-content: center;
   align-items: center;
   color: black;
+
   &:hover {
     border: 1px solid green;
   }
@@ -130,10 +141,11 @@ const DetailPresenter = ({
   isMovie,
   error,
   loading,
-  activeTab,
-  onClickMenu,
+  match,
+  location,
 }) => {
-  console.log(result);
+  const [activeTab, setActiveTab] = useState(0);
+
   return (
     <>
       {loading ? (
@@ -164,8 +176,8 @@ const DetailPresenter = ({
               <ItemContainer>
                 <Item>
                   {isMovie
-                    ? result.release_date.substr(0, 4)
-                    : result.first_air_date.substr(0, 4)}
+                    ? result.release_date?.substr(0, 4)
+                    : result.first_air_date?.substr(0, 4)}
                 </Item>
                 <Divider>•</Divider>
                 <Item>
@@ -180,39 +192,28 @@ const DetailPresenter = ({
                         .join(" / ")}
                 </Item>
                 <Divider>•</Divider>
-                <Item></Item>
+                <Item>
+                  {isMovie && (
+                    <a href={`https://imdb.com/title/${result.imdb_id}`}>
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/IMDB_Logo_2016.svg" />
+                    </a>
+                  )}
+                </Item>
               </ItemContainer>
               <Summary>{result?.overview}</Summary>
 
               <Menu>
                 <Tabs>
-                  <Tab
-                    isActive={activeTab === 0}
-                    onClick={() => onClickMenu(0)}
-                  >
-                    Videos
-                  </Tab>
-                  <Tab
-                    isActive={activeTab === 1}
-                    onClick={() => onClickMenu(1)}
-                  >
-                    Production Companies
-                  </Tab>
+                  <Tab onClick={() => setActiveTab(0)}>Videos</Tab>
+                  <Tab onClick={() => setActiveTab(1)}>Productions</Tab>
+                  {!isMovie && (
+                    <Tab onClick={() => setActiveTab(2)}>Seasons</Tab>
+                  )}
                 </Tabs>
                 <TabContent activeTab={activeTab}>
-                  {activeTab === 0
-                    ? result.videos.results &&
-                      result.videos.results.length > 0 && (
-                        <Video id={result.videos.results[0].key} />
-                      )
-                    : result.production_companies &&
-                      result.production_companies.length > 0 &&
-                      result.production_companies.map(
-                        (company, index) =>
-                          company.logo_path && (
-                            <Company key={index} logo={company.logo_path} />
-                          )
-                      )}
+                  {activeTab === 0 && <Videos result={result} />}
+                  {activeTab === 1 && <Productions result={result} />}
+                  {activeTab === 2 && <Seasons result={result} />}
                 </TabContent>
               </Menu>
             </Data>

@@ -21,6 +21,7 @@ const Input = styled.input`
   width: 100%;
   font-size: 25px;
   text-align: center;
+
   :focus {
     text-decoration: underline;
   }
@@ -56,13 +57,10 @@ const SearchPresenter = ({
               <Section title="Movie Results">
                 {movieResults.map((movie) => (
                   <Poster
-                    imageURL={
-                      movie.poster_path ||
-                      require("../../assets/noPosterSmall.png")
-                    }
+                    imageURL={movie.poster_path}
                     id={movie.id}
                     title={movie.title}
-                    year={movie.release_date.substr(0, 4)}
+                    year={movie.release_date?.substr(0, 4)}
                     rating={movie.vote_average}
                     isMovie={true}
                   />
@@ -77,7 +75,7 @@ const SearchPresenter = ({
                   <Poster
                     imageURL={
                       show.poster_path ||
-                      require("../../assets/noPosterSmall.png")
+                      require("../../assets/noPosterSmall.png").default
                     }
                     id={show.id}
                     title={show.name}

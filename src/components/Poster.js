@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
 const Container = styled.div`
   height: 200px;
 `;
 
 const Image = styled.div`
-  background-image: url("https://image.tmdb.org/t/p/w300/${(props) =>
-    props.bgImg}");
+  background-image: url(${(props) => props.bgImg});
   background-size: cover;
   height: 180px;
   width: 100%;
@@ -28,17 +28,19 @@ const Rating = styled.span`
 const ImageContainer = styled.div`
   margin-bottom: 3px;
   position: relative;
-  &:hover{
-    ${Image}{
-    opacity:0.5; 
-     border: 0.3mm solid skyblue;
+
+  &:hover {
+    ${Image} {
+      opacity: 0.5;
+      border: 0.3mm solid skyblue;
     }
-    ${Rating}{
-      opacity:1;
+
+    ${Rating} {
+      opacity: 1;
     }
   }
-  
-  }
+
+}
 `;
 const Title = styled.span`
   display: block;
@@ -58,7 +60,13 @@ const Poster = ({ imageURL, id, title, rating, year, isMovie = false }) => {
     <Link to={isMovie ? `/movie/${id}` : `/show/${id}`}>
       <Container>
         <ImageContainer>
-          <Image bgImg={imageURL} />
+          <Image
+            bgImg={
+              imageURL
+                ? `https://image.tmdb.org/t/p/w300/${imageURL}`
+                : require("../assets/noPosterSmall.png").default
+            }
+          />
           <Rating>
             <span role="img" aria-label="rating">
               ⭐
@@ -76,7 +84,7 @@ const Poster = ({ imageURL, id, title, rating, year, isMovie = false }) => {
 };
 Poster.propTypes = {
   id: PropTypes.number.isRequired,
-  imageURL: PropTypes.string,
+  imageURL: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   rating: PropTypes.number,
   year: PropTypes.string,
