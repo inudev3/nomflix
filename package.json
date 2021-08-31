@@ -10,6 +10,7 @@
     "@types/node": "^16.6.2",
     "@types/react-router-dom": "^5.1.8",
     "axios": "^0.21.1",
+    "eslint-config-react": "^1.1.7",
     "flag-icon-css": "^3.5.0",
     "gh-pages": "^3.2.3",
     "prop-types": "^15.7.2",
